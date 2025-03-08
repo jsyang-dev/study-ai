@@ -1,1 +1,6 @@
-spring.application.name: study-ai
+spring:
+  application:
+    name: study-ai
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
