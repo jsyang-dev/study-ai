@@ -26,6 +26,8 @@ public class ChatClintConfig {
 
     @Bean
     public ChatClient chatClient(ChatModel chatModel) {
-        return ChatClient.builder(chatModel).build();
+        return ChatClient.builder(chatModel)
+                .defaultSystem("You are a friendly chat bot that answers question in the voice of a {voice}")
+                .build();
     }
 }

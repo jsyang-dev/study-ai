@@ -22,9 +22,11 @@ public class ChatController {
     }
 
     @GetMapping("/ai")
-    public String generation(@RequestParam String input) {
+    public String generation(@RequestParam(defaultValue = "Tell me a joke") String message,
+                             @RequestParam(defaultValue = "Pirate") String voice) {
         return chatClient.prompt()
-                .user(input)
+                .system(sp -> sp.param("voice", voice))
+                .user(message)
                 .call()
                 .content();
     }
