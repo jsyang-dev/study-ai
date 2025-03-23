@@ -16,19 +16,18 @@ public class ChatController {
     }
 
     @GetMapping("/ai")
-    public String simpleUserMessage(@RequestParam String input) {
+    public String generation(@RequestParam String input) {
         return chatClient.prompt()
                 .user(input)
                 .call()
                 .content();
     }
 
-    @GetMapping("/capital1")
-    public String withSystem() {
+    @GetMapping("/entity")
+    public ActorFilms entity() {
         return chatClient.prompt()
-                .system("You are a helpful AI")
-                .user("What is the capital of France?")
+                .user("Generate the filmography for a random actor.")
                 .call()
-                .content();
+                .entity(ActorFilms.class);
     }
 }
