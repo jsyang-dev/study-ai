@@ -15,10 +15,19 @@ public class ChatController {
         this.chatClient = chatClientBuilder.build();
     }
 
-    @GetMapping("/simple")
+    @GetMapping("/ai")
     public String simpleUserMessage(@RequestParam String input) {
         return chatClient.prompt()
                 .user(input)
+                .call()
+                .content();
+    }
+
+    @GetMapping("/capital1")
+    public String withSystem() {
+        return chatClient.prompt()
+                .system("You are a helpful AI")
+                .user("What is the capital of France?")
                 .call()
                 .content();
     }
