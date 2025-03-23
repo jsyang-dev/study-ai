@@ -2,6 +2,7 @@ package me.study.ai.chat;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -26,7 +27,9 @@ public class CustomerSupportAssistant {
                         
                         If there is a charge for the change, you MUST ask the user to consent before proceeding.
                         """)
-                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+                .defaultAdvisors(
+                        new MessageChatMemoryAdvisor(chatMemory),
+                        new SimpleLoggerAdvisor())
                 .build();
     }
 
