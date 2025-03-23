@@ -16,9 +16,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatClient chatClient;
+    private final CustomerSupportAssistant customerSupportAssistant;
 
-    public ChatController(ChatClient.Builder chatClientBuilder) {
+    public ChatController(ChatClient.Builder chatClientBuilder, CustomerSupportAssistant customerSupportAssistant) {
         this.chatClient = chatClientBuilder.build();
+        this.customerSupportAssistant = customerSupportAssistant;
     }
 
     @GetMapping("/ai")
@@ -63,5 +65,10 @@ public class ChatController {
         String content = flux.collectList().block().stream().collect(Collectors.joining());
 
         return converter.convert(content);
+    }
+
+    @GetMapping("/support")
+    public Flux<String> support(@RequestParam String chatId, @RequestParam String message) {
+        return customerSupportAssistant.chat(chatId, message);
     }
 }

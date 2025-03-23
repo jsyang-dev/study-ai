@@ -1,6 +1,8 @@
 package me.study.ai.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.api.OpenAiApi;
@@ -27,5 +29,10 @@ public class ChatClintConfig {
     @Bean
     public ChatClient.Builder chatClientBuilder(ChatModel chatModel) {
         return ChatClient.builder(chatModel);
+    }
+
+    @Bean
+    public ChatMemory chatMemory() {
+        return new InMemoryChatMemory();
     }
 }
